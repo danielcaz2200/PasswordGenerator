@@ -10,16 +10,22 @@
 class PasswordGenerator
 {
 public:
+    // default constructor
     PasswordGenerator(void);
+
+    // parameterized constructor with argument of password length
     PasswordGenerator(int length);
 
-    // accessors and modifiers
+    // retrieve password as std::string
     std::string get_password(void);
 
+    // write password to <filename> or default file of password.txt
     void write_password(const std::string &filename = "");
 
+    // generate random password
     void gen_password(void);
 
+    // change password length, for use before generation
     void change_length(int length);
 
 private:
@@ -29,10 +35,15 @@ private:
     int _rNum;
 };
 
-PasswordGenerator::PasswordGenerator(void) : PasswordGenerator(8) {}
+PasswordGenerator::PasswordGenerator(void) : PasswordGenerator(8)
+{
+    // default constructor, initializes length to 8
+}
 
 PasswordGenerator::PasswordGenerator(int length) : _length(static_cast<std::size_t>(length))
 {
+    // paramaterized constructor which takes password length from user
+
     // seed random number generator
     std::srand(std::time(0));
 
@@ -61,6 +72,8 @@ PasswordGenerator::PasswordGenerator(int length) : _length(static_cast<std::size
 
 void PasswordGenerator::write_password(const std::string &filename)
 {
+    // writes password to output file or defaults to password.txt if none given
+
     if (_password.empty())
         throw(std::logic_error("Password has not been generated yet.\n"));
 
@@ -88,11 +101,15 @@ void PasswordGenerator::write_password(const std::string &filename)
 
 std::string PasswordGenerator::get_password(void)
 {
+    // returns password
+
     return _password;
 }
 
 void PasswordGenerator::gen_password(void)
 {
+    // generates new password per function call
+
     _password = "";
     for (std::size_t i = 0; i < _length; ++i)
     {
@@ -105,6 +122,8 @@ void PasswordGenerator::gen_password(void)
 
 void PasswordGenerator::change_length(int length)
 {
+    // modifies length of password string for later generation
+
     _length = static_cast<std::size_t>(length);
 
     return;
